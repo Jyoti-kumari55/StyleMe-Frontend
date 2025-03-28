@@ -24,7 +24,7 @@ function App() {
                 </div>
                 <div className="carousel-item">
                   <img
-                    src="https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=1440"
+                    src="https://images.pexels.com/photos/1201613/pexels-photo-1201613.jpeg?auto=compress&cs=tinysrgb&w=1400"
                     className="d-block "
                     alt="img2"
                   />
