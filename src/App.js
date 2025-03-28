@@ -18,42 +18,47 @@ function App() {
                 <div className="carousel-item active">
                   <img
                     src="https://images.pexels.com/photos/974911/pexels-photo-974911.jpeg?auto=compress&cs=tinysrgb&w=1400"
-                    className="d-block "
+                    className="d-block w-100 img-fluid"
+
                     alt="img1"
                   />
                 </div>
                 <div className="carousel-item">
                   <img
                     src="https://images.pexels.com/photos/1201613/pexels-photo-1201613.jpeg?auto=compress&cs=tinysrgb&w=1400"
-                    className="d-block "
+                    className="d-block w-100 img-fluid"
+
                     alt="img2"
                   />
                 </div>
                 <div className="carousel-item">
                   <img
                     src="https://images.pexels.com/photos/10188726/pexels-photo-10188726.jpeg?auto=compress&cs=tinysrgb&w=1400"
-                    className="d-block"
+                    className="d-block w-100 img-fluid"
+
                     alt="img3"
                   />
                 </div>
                 <div className="carousel-item">
                   <img
                     src="https://images.pexels.com/photos/840916/pexels-photo-840916.jpeg?auto=compress&cs=tinysrgb&w=1400"
-                    className="d-block"
+                    className="d-block w-100 img-fluid"
+
                     alt="img4"
                   />
                 </div>
                 <div className="carousel-item">
                   <img
-                    src="https://images.pexels.com/photos/952212/pexels-photo-952212.jpeg?auto=compress&cs=tinysrgb&w=1440"
-                    className="d-block"
+                    src="https://images.pexels.com/photos/952212/pexels-photo-952212.jpeg?auto=compress&cs=tinysrgb&w=1400"
+                    className="d-block w-100 img-fluid"
+
                     alt="img5"
                   />
                 </div>
                 <div className="carousel-item">
                   <img
                     src="https://images.pexels.com/photos/845434/pexels-photo-845434.jpeg?auto=compress&cs=tinysrgb&w=1440"
-                    className="d-block w-100"
+                    className="d-block w-100 img-fluid"
                     alt="img6"
                   />
                 </div>
