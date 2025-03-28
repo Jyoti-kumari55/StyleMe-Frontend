@@ -38,7 +38,7 @@ function App() {
                 </div>
                 <div className="carousel-item">
                   <img
-                    src="hhttps://images.pexels.com/photos/840916/pexels-photo-840916.jpeg?auto=compress&cs=tinysrgb&w=1400"
+                    src="https://images.pexels.com/photos/840916/pexels-photo-840916.jpeg?auto=compress&cs=tinysrgb&w=1400"
                     className="d-block"
                     alt="img4"
                   />
