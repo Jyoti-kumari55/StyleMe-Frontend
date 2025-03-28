@@ -17,7 +17,7 @@ function App() {
               <div className="carousel-inner">
                 <div className="carousel-item active">
                   <img
-                    src="https://images.pexels.com/photos/1158670/pexels-photo-1158670.jpeg?auto=compress&cs=tinysrgb&w=1440"
+                    src="https://images.pexels.com/photos/974911/pexels-photo-974911.jpeg?auto=compress&cs=tinysrgb&w=1400"
                     className="d-block "
                     alt="img1"
                   />
@@ -31,14 +31,14 @@ function App() {
                 </div>
                 <div className="carousel-item">
                   <img
-                    src="https://images.pexels.com/photos/1094084/pexels-photo-1094084.jpeg?auto=compress&cs=tinysrgb&w=1440"
+                    src="https://images.pexels.com/photos/10188726/pexels-photo-10188726.jpeg?auto=compress&cs=tinysrgb&w=1400"
                     className="d-block"
                     alt="img3"
                   />
                 </div>
                 <div className="carousel-item">
                   <img
-                    src="https://images.pexels.com/photos/1006994/pexels-photo-1006994.jpeg?auto=compress&cs=tinysrgb&w=1440"
+                    src="hhttps://images.pexels.com/photos/840916/pexels-photo-840916.jpeg?auto=compress&cs=tinysrgb&w=1400"
                     className="d-block"
                     alt="img4"
                   />
