@@ -1,0 +1,21 @@
+.carousel-item img {
+  width: fit-content;
+  height: fit-content;
+  object-fit: contain;
+}
+
+/* object-position: center;  */
+/* .carousel-control-prev,
+.carousel-control-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1; /* Ensure the arrows are above the images */
+
+/* .carousel-control-prev {
+  left: 10px;
+}
+
+.carousel-control-next {
+  right: 10px;
+} */
