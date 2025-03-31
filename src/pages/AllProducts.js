@@ -141,7 +141,7 @@ const AllProducts = () => {
         {error && "An error occured while fetching data"}
         <div className="row">
           <div className="col-md-2">
-            <div className="">
+            <div className="d-flex gap-5">
               <label htmlFor="clearFilter" className="form-label">
                 <b>Filters</b>
               </label>
@@ -149,7 +149,7 @@ const AllProducts = () => {
                 onClick={clickClearHandler}
                 className="pl-5 text-dark link-dark link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
               >
-                Clear All{" "}
+                <b>Clear All{" "}</b>
               </Link>
             </div>
 
