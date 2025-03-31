@@ -11,6 +11,7 @@ import {
   updateProductSize,
 } from "../features/cartSlice";
 import AddressView from "./AddressView";
+import { toast, ToastContainer } from "react-toastify";
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -30,40 +31,31 @@ const Cart = () => {
     if (!isAuthenticated) {
       navigate("/login");
     } else {
+      console.log("Fetching cart for user:", user._id);
       dispatch(fetchCart(user._id));
     }
   }, [dispatch, isAuthenticated, user, navigate]);
 
+
+
   const removeFromCartHandler = (productId) => {
     dispatch(removeFromCart({ userId: user._id, productId }));
-    setAlertState("Product removed from your Cart Successfully...");
-    setTimeout(() => {
-      setAlertState("");
-    }, 1000);
+    toast.success("Product removed from your Cart Successfully...");
   };
 
   const incrementHandler = (productId) => {
     dispatch(itemQunatityIncrementInCart({ userId: user._id, productId }));
-    setAlertState("Product quantity Increased by 1.");
-    setTimeout(() => {
-      setAlertState("");
-    }, 1000);
+    toast.success("Product quantity Increased by 1.");
   };
 
   const decrementHandler = (productId) => {
     dispatch(itemQunatityDecrementInCart({ userId: user._id, productId }));
-    setAlertState("Product quantity Decreased by 1.");
-    setTimeout(() => {
-      setAlertState("");
-    }, 1000);
+    toast.success("Product quantity Decreased by 1.");
   };
 
   const moveToWishlistClickHandler = async (productId) => {
     await dispatch(moveToWishlistFrmCart({ userId: user._id, productId }));
-    setAlertState("Product moved to the Wishlist...");
-    setTimeout(() => {
-      setAlertState("");
-    }, 1000);
+    toast.success("Product moved to the Wishlist...");
     navigate("/whislist");
   };
 
@@ -83,12 +75,17 @@ const Cart = () => {
       (item) => selectedSizes[item.productId._id] !== undefined
     );
 
+    // if (!allSizesSelected) {
+    //   setSizeError(true);
+    //   return;
+    // }
+
     if (!allSizesSelected) {
-      setSizeError(true);
+      toast.error("Please select a size for all products before proceeding.");
       return;
     }
 
-    setSizeError(false);
+    // setSizeError(false);
     navigate("/checkout", { state: { address: selectedAddress } });
   };
 
@@ -111,22 +108,22 @@ const Cart = () => {
           </button>
         </p>
 
-        {sizeError && (
+        {/* {sizeError && (
           <div className="alert alert-danger" role="alert">
             Please select a size for all products before proceeding.
           </div>
-        )}
+        )} */}
         <div className="row">
           <div className="col-md-3">
             <AddressView onSelectAddress={setSelectedAddress} />
           </div>
 
           <div className="col-md-9 pl-4">
-            {alertState && (
+            {/* {alertState && (
               <div className="alert alert-success" role="alert">
                 {alertState}
               </div>
-            )}
+            )} */}
 
             {cartItems.length > 0 ? (
               <div className="row">
@@ -273,6 +270,7 @@ const Cart = () => {
           </div>
         )}
       </div>
+      <ToastContainer /> 
     </>
   );
 };

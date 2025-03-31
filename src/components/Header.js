@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../features/userSlice";
+import { clearCart } from "../features/cartSlice";
 
 const Header = ({ setSelectedUser }) => {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const Header = ({ setSelectedUser }) => {
 
   const handleLogout = () => {
     dispatch(logoutUser());
+    dispatch(clearCart())
   };
 
   const cartItems = useSelector((state) => state.cart.cartItems.items);

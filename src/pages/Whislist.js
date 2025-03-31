@@ -9,6 +9,8 @@ import {
   fetchWhislist,
   removeFromWhislist,
 } from "../features/whislistSlice";
+import { toast, ToastContainer } from "react-toastify";
+
 
 const Whislist = () => {
   const dispatch = useDispatch();
@@ -28,23 +30,21 @@ const Whislist = () => {
     }
   }, [dispatch, isAuthenticated, navigate, user]);
 
+
   const removeFromWhislistHandler = (productId) => {
     dispatch(removeFromWhislist({ userId: user._id, productId }));
-    setAlertState("Product removed from your Wishlist Successfully...");
-    // dispatch(fetchWhislist());
+    toast.success("Product removed from your Wishlist Successfully...");
     setTimeout(() => {
-      setAlertState("");
-    }, 1000);
-    navigate(0);
+      navigate(0); 
+    }, 1000); 
   };
 
   const addToCartClickHandler = async (productId) => {
     await dispatch(addToCartFromWhishlist({ userId: user._id, productId }));
-    setAlertState("Product added to the Cart...");
+    toast.success("Product added to the Cart...");
     setTimeout(() => {
-      setAlertState("");
-    }, 1000);
-    navigate("/cart");
+      navigate("/cart");
+    }, 1000); 
   };
 
   // const [wishlistState, setWishlistStates] = useState({});
@@ -60,11 +60,11 @@ const Whislist = () => {
     <>
       <Header />
       <div className="container">
-        {alertState && (
+        {/* {alertState && (
           <div className="alert alert-success" role="alert">
             {alertState}
           </div>
-        )}
+        )} */}
         <p className="fs-2">
           Wishlist{" "}
           <span className="fs-4">
@@ -133,6 +133,7 @@ const Whislist = () => {
           </div>
         )}
       </div>
+      <ToastContainer />
     </>
   );
 };

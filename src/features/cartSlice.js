@@ -2,13 +2,22 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const CART_BASE_URL = "https://project-1-backend-delta.vercel.app";
+// const CART_BASE_URL = "http://localhost:3000";
 
-// Fetch the user's cart
 export const fetchCart = createAsyncThunk("cart/fetchCart", async (userId) => {
   try {
     const response = await axios.get(`${CART_BASE_URL}/carts/${userId}`);
     return response.data;
-  } catch (error) {
+  } 
+  // catch (error) {
+  //   throw Error(error.response.data.message || error.message);
+  // }
+
+  catch (error) {
+    if (error.response?.status === 404) {
+      const createCartResponse = await axios.post(`${CART_BASE_URL}/carts`, { userId });
+      return createCartResponse.data;  
+    }
     throw Error(error.response.data.message || error.message);
   }
 });
@@ -118,11 +127,11 @@ export const cartSlice = createSlice({
   },
 
   reducers: {
-    // clearCart: (state) => {
-    //   state.cartItems.items = [];
-    //   state.totalQuantity = 0;
-    //   state.status = "idle";
-    // },
+    clearCart: (state) => {
+      state.cartItems.items = [];
+      state.totalQuantity = 0;
+      state.status = "idle";
+    },
   },
 
   extraReducers: (builder) => {
@@ -135,6 +144,7 @@ export const cartSlice = createSlice({
     });
     builder.addCase(fetchCart.rejected, (state, action) => {
       state.status = "failed";
+      console.error("Error fetching cart:", action.error.message);
       state.error = action.error.message;
     });
 
@@ -198,6 +208,6 @@ export const cartSlice = createSlice({
   },
 });
 
-// export const { clearCart } = cartSlice.actions;
+export const { clearCart } = cartSlice.actions;
 
 export default cartSlice.reducer;

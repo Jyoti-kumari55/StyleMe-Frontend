@@ -82,7 +82,7 @@ export const whislistSlice = createSlice({
     });
     builder.addCase(fetchWhislist.fulfilled, (state, action) => {
       state.status = "success";
-      state.whislist.items = action.payload.products;
+      state.whislist.items = action.payload.products || [];
       //console.log("action paylod", state.whislist.items);
     });
     builder.addCase(fetchWhislist.rejected, (state, action) => {
