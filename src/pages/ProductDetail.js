@@ -1,44 +1,42 @@
+/* eslint-disable jsx-a11y/alt-text */
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import Header from "../components/Header";
 import { addToCart } from "../features/cartSlice";
 import { addToWhislist } from "../features/whislistSlice";
-import { useState } from "react";
 
 const ProductDetail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isAuthenticated, user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
   const products = useSelector((state) => state.products.products);
   const status = useSelector((state) => state.products.status);
   const error = useSelector((state) => state.products.error);
   const productId = useParams();
 
-  console.log("User ID:", user._id);
+  // console.log("User ID:", user._id);
 
   const productInfo = products?.find(
     (product) => product._id === productId.productId
   );
-  console.log("Product Info", productInfo);
+  // console.log("Product Info", productInfo);
 
-  const [alertState, setAlertState] = useState("");
 
   const addToCartHandler = (productInfo) => {
     dispatch(addToCart({ userId: user._id, product: productInfo }));
-    setAlertState("Product added to your Cart Successfully...");
+    toast.success("Product added to your Cart Successfully...");
     setTimeout(() => {
-      setAlertState("");
-    }, 1200);
+    }, 1000);
     navigate("/cart");
   };
 
   const addToWhistlistHandler = (productInfo) => {
     dispatch(addToWhislist({ userId: user._id, product: productInfo }));
-    setAlertState("Product added to your Wishlist Successfully...");
+    toast.success("Product added to your Wishlist Successfully...");
     setTimeout(() => {
-      setAlertState("");
-    }, 1200);
+    }, 1000);
     navigate("/whislist");
   };
 
@@ -47,11 +45,6 @@ const ProductDetail = () => {
       <Header />
       <main>
         <div className="container mt-4">
-          {alertState && (
-            <div className="alert alert-success" role="alert">
-              {alertState}
-            </div>
-          )}
           {status === "loading" && <p>Fetching product details</p>}
           {error && (
             <p>An error occurred while fetching the product details.</p>
@@ -66,7 +59,7 @@ const ProductDetail = () => {
                   src={productInfo.imageUrl}
                   alt={productInfo.name}
                   className="img-fluid rounded-5"
-                  style={{ width: "80%", maxWidth: "500px", height: "auto" }} // Adjusted for bigger image
+                  style={{ width: "80%", maxWidth: "500px", height: "auto" }} 
                 />
               </div>
 
@@ -94,7 +87,7 @@ const ProductDetail = () => {
                         style={{
                           width: "12px",
                           height: "14px",
-                          marginBottom: "4px",
+                          marginBottom: "4px"
                         }}
                       />
                     </span>
@@ -145,6 +138,7 @@ const ProductDetail = () => {
             </div>
           )}
         </div>
+        <ToastContainer/>
       </main>
     </>
   );

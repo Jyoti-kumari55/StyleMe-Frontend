@@ -89,6 +89,7 @@ export const whislistSlice = createSlice({
       state.status = "failed";
       state.error = action.error.message;
     });
+    
     builder.addCase(addToWhislist.fulfilled, (state, action) => {
       //console.log("Action", action);
       console.log("State ", state.whislist.items);
@@ -97,6 +98,11 @@ export const whislistSlice = createSlice({
         { productId: action.meta.arg, _id: action.meta.arg._id },
       ];
     });
+
+    // builder.addCase(addToWhislist.fulfilled, (state, action) => {
+    //   // Add the product to the wishlist
+    //   state.whislist.items.push(action.payload);
+    // });
 
     builder.addCase(removeFromWhislist.fulfilled, (state, action) => {
       //console.log("payloadd", action);

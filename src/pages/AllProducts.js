@@ -4,7 +4,8 @@ import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../features/productsSlice";
 import { addToCart } from "../features/cartSlice";
-import { addToWhislist } from "../features/whislistSlice";
+import { addToWhislist, fetchWhislist } from "../features/whislistSlice";
+import { toast, ToastContainer } from "react-toastify";
 
 const AllProducts = () => {
   const navigate = useNavigate();
@@ -16,12 +17,18 @@ const AllProducts = () => {
   const status = useSelector((state) => state.products.status);
   const error = useSelector((state) => state.products.error);
   //  console.log("Status", status);
-  // const wishlist = useSelector((state) => state.whislist.whislist.items);
+  const wishlist = useSelector((state) => state.whislist.whislist.items);
+  console.log("345566ww: ", wishlist);
 
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
+  useEffect(() => {
+    if (user?._id) {
+      dispatch(fetchWhislist(user._id));
+    }
+  }, [dispatch, user]);
   const serchItem = new URLSearchParams(location.search);
   const searchQuery = serchItem.get("query") || " ";
   // console.log("Search Items", searchQuery);
@@ -99,58 +106,37 @@ const AllProducts = () => {
     );
   //console.log("filtered : ", filteredClothes);
 
-  const [alertState, setAlertState] = useState("");
-
   const addToCartHandler = (product) => {
     dispatch(addToCart({ userId: user._id, product }));
-    setAlertState("Product added to your Cart Successfully...");
-    setTimeout(() => {
-      setAlertState("");
-    }, 1200);
+    toast.success("Product added to your Cart Successfully...");
+    setTimeout(() => {}, 1200);
     navigate("/cart");
   };
 
   const addToWhistlistHandler = (product) => {
     if (user?._id) {
-      dispatch(addToWhislist({ userId: user._id, product }));
-      setAlertState("Product added to your Wishlist Successfully...");
-      setTimeout(() => {
-        setAlertState("");
-        //navigate("/whislist");
-      }, 1200);
-      // navigate("/whislist");
-    } else {
-      setAlertState(
-        "You need to be logged in to add products to your wishlist."
+      const isProductInWishlist = wishlist.some(
+        (item) => item.productId._id === product._id
       );
+
+      if (isProductInWishlist) {
+        toast.info("This product is already in your wishlist.");
+      } else {
+        dispatch(addToWhislist({ userId: user._id, product }));
+        toast.success("Product added to your Wishlist Successfully...");
+      }
+    } else {
+      toast.error("You need to be logged in to add products to your wishlist.");
+      setTimeout(() => {
+        navigate("/whislist");
+      }, 500);
     }
   };
-
-  // const removeFromWhislistHandler = (product) => {
-  //   dispatch(removeFromWhislist(product));
-  //   setAlertState("Product removed from your Wishlist Successfully...");
-  //   setTimeout(() => {
-  //     setAlertState("");
-  //   }, 1000);
-  // };
-
-  // const [wishlistStates, setWishlistStates] = useState({});
-  // const whislistBtnToggler = (id) => {
-  //   setWishlistStates((prevStates) => ({
-  //     ...prevStates,
-  //     [id]: !prevStates[id],
-  //   }));
-  // };
 
   return (
     <>
       <Header />
       <div className="m-5">
-        {alertState && (
-          <div className="alert alert-success" role="alert">
-            {alertState}
-          </div>
-        )}
         {status === "loading" && <p>loading...</p>}
         {error && "An error occured while fetching data"}
         <div className="row">
@@ -319,42 +305,6 @@ const AllProducts = () => {
                             alt="..."
                           />
                         </Link>
-
-                        {/* <div
-                          className="px-2 py-2 "
-                          style={{
-                            position: "absolute",
-                            bottom: "10px",
-                            right: "5px",
-                            zIndex: 10,
-                            // width: "2.5rem",
-                            // height: "2.5rem",
-                            borderRadius: "50%",
-                            backgroundColor: "white",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            boxShadow: "0 0 5px rgba(0, 0, 0, 0.2)",
-                          }}
-                        >
-                          <ion-icon
-                            name={
-                              wishlistStates[cloth._id]
-                                ? "heart"
-                                : "heart-outline"
-                            }
-                            style={{
-                              width: "1.4rem",
-                              height: "1.4rem",
-                              color: wishlistStates[cloth._id] ? "red" : "gray",
-                            }}
-                            onClick={() => {
-                              whislistBtnToggler(cloth._id);
-                              addToWhistlistHandler(cloth);
-                              // removeFromWhislistHandler(cloth);
-                            }}
-                          ></ion-icon>
-                        </div> */}
                       </div>
                       <div className="card-body text-center">
                         <p
@@ -397,17 +347,33 @@ const AllProducts = () => {
                             >
                               Add to Cart
                             </button>
+
                             <button
                               type="button"
-                              className="btn btn btn-outline-danger"
+                              // className="btn btn btn-outline-danger"
+                              className={`btn ${
+                                wishlist.some(
+                                  (item) => item.productId._id === cloth._id
+                                )
+                                  ? "btn-secondary"
+                                  : "btn-outline-danger"
+                              }`}
                               style={{
                                 flex: "0 0 auto",
                                 marginBottom: "10px",
                               }}
                               onClick={() => addToWhistlistHandler(cloth)}
+                              disabled={wishlist.some(
+                                (item) => item.productId._id === cloth._id
+                              )}
                               // onClick={() => whislistBtnToggler(cloth)}
                             >
-                              Add to Wishlist
+                              {/* Add to Wishlist */}
+                              {wishlist.some(
+                                (item) => item.productId._id === cloth._id
+                              )
+                                ? "Added to Wishlist"
+                                : "Add to Wishlist"}
                             </button>
                           </div>
                         </div>
@@ -422,6 +388,7 @@ const AllProducts = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </>
   );
 };

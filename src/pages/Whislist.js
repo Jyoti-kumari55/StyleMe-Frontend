@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
@@ -20,7 +20,6 @@ const Whislist = () => {
   // console.log(whislistItem);
   const status = useSelector((state) => state.whislist.status);
   const error = useSelector((state) => state.whislist.error);
-  const [alertState, setAlertState] = useState("");
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -60,11 +59,6 @@ const Whislist = () => {
     <>
       <Header />
       <div className="container">
-        {/* {alertState && (
-          <div className="alert alert-success" role="alert">
-            {alertState}
-          </div>
-        )} */}
         <p className="fs-2">
           Wishlist{" "}
           <span className="fs-4">

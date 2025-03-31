@@ -8,7 +8,6 @@ import {
   itemQunatityIncrementInCart,
   moveToWishlistFrmCart,
   removeFromCart,
-  updateProductSize,
 } from "../features/cartSlice";
 import AddressView from "./AddressView";
 import { toast, ToastContainer } from "react-toastify";
@@ -21,10 +20,7 @@ const Cart = () => {
   const cartItems = useSelector((state) => state.cart.cartItems.items);
   const status = useSelector((state) => state.cart.status);
   const error = useSelector((state) => state.cart.error);
-
-  const [alertState, setAlertState] = useState("");
   const [selectedSizes, setSelectedSizes] = useState({});
-  const [sizeError, setSizeError] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState(null);
 
   useEffect(() => {
@@ -75,17 +71,16 @@ const Cart = () => {
       (item) => selectedSizes[item.productId._id] !== undefined
     );
 
-    // if (!allSizesSelected) {
-    //   setSizeError(true);
-    //   return;
-    // }
-
+    if (!selectedAddress) {
+      toast.error("Please select an address before proceeding.");
+      return;
+    }
+    
     if (!allSizesSelected) {
       toast.error("Please select a size for all products before proceeding.");
       return;
     }
 
-    // setSizeError(false);
     navigate("/checkout", { state: { address: selectedAddress } });
   };
 
@@ -108,22 +103,14 @@ const Cart = () => {
           </button>
         </p>
 
-        {/* {sizeError && (
-          <div className="alert alert-danger" role="alert">
-            Please select a size for all products before proceeding.
-          </div>
-        )} */}
+
         <div className="row">
           <div className="col-md-3">
             <AddressView onSelectAddress={setSelectedAddress} />
           </div>
 
           <div className="col-md-9 pl-4">
-            {/* {alertState && (
-              <div className="alert alert-success" role="alert">
-                {alertState}
-              </div>
-            )} */}
+           
 
             {cartItems.length > 0 ? (
               <div className="row">

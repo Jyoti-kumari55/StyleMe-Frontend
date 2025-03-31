@@ -38,16 +38,12 @@ const CheckOut = () => {
     }
 
     dispatch(clearCartAPI(user._id));
-    console.log("Cart state after clearing:", cartItems);
-
+    // console.log("Cart state after clearing:", cartItems);
     localStorage.removeItem("cartItems");
-
-    console.log("Cart state after clearing0000000----:", cartItems);
-
     navigate("/orderNow");
   };
   useEffect(() => {
-    console.log("Updated Cart state after clearing:", cartItems);
+    // console.log("Updated Cart state after clearing:", cartItems);
   }, [cartItems, dispatch]);
 
   return (
