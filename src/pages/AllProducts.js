@@ -48,7 +48,7 @@ const AllProducts = () => {
 
   const [allClothFilter, setAllClothFilter] = useState([]);
   const [ratingFilter, setRatingFilter] = useState(null);
-  const [priceFilter, setPriceFilter] = useState({ min: 100, max: 5000 });
+  const [priceFilter, setPriceFilter] = useState({ min: 100, max: 10000 });
   // eslint-disable-next-line no-unused-vars
   const [clearFilter, setClearFilter] = useState({
     allClothFilter: "",
@@ -266,12 +266,12 @@ const AllProducts = () => {
                 type="range"
                 className="form-range"
                 min="100"
-                max="5000"
+                max="10000"
                 id="min"
                 value={priceFilter.min}
                 onChange={changeRangePriceFilter}
               />
-              <span>${priceFilter.min}</span>
+              <span>₹{priceFilter.min}</span>
             </div>
 
             <div className="mt-3 form-check">
@@ -282,12 +282,12 @@ const AllProducts = () => {
                 type="range"
                 className="form-range"
                 min="100"
-                max="5000"
+                max="10000"
                 id="max"
                 value={priceFilter.max}
                 onChange={changeRangePriceFilter}
               />
-              <span>${priceFilter.max}</span>
+              <span>₹{priceFilter.max}</span>
             </div>
           </div>
 
@@ -329,7 +329,7 @@ const AllProducts = () => {
                         </h5>
                         <div className="card-text">
                           <p>
-                            <b>{cloth.price}</b>
+                            <b>₹{cloth.price}</b>
                           </p>
 
                           <div

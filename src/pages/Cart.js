@@ -52,7 +52,7 @@ const Cart = () => {
   const moveToWishlistClickHandler = async (productId) => {
     await dispatch(moveToWishlistFrmCart({ userId: user._id, productId }));
     toast.success("Product moved to the Wishlist...");
-    navigate("/whislist");
+    // navigate("/whislist");
   };
 
   const totalQuantity = cartItems.reduce(
@@ -111,7 +111,6 @@ const Cart = () => {
 
           <div className="col-md-9 pl-4">
            
-
             {cartItems.length > 0 ? (
               <div className="row">
                 {status === "loading" && <p>Loading cart products...</p>}
@@ -142,7 +141,7 @@ const Cart = () => {
                             <h5 className="card-title">
                               {item.productId.name}
                             </h5>
-                            <p className="card-text">${item.productId.price}</p>
+                            <p className="card-text">₹{item.productId.price}</p>
 
                             <div className="form-group">
                               <label
@@ -241,7 +240,7 @@ const Cart = () => {
                         {selectedSizes[item.productId._id] || "Not selected"}
                         <span className="float-end">
                           {" "}
-                          {item.productId.price * item.quantity}{" "}
+                          ₹{item.productId.price * item.quantity}{" "}
                         </span>
                       </p>
                     </div>
@@ -249,7 +248,7 @@ const Cart = () => {
                   <hr />
                   <p className="">
                     Total Price:{" "}
-                    <span className="float-end">{totalPrice} </span>{" "}
+                    <span className="float-end">₹{totalPrice} </span>{" "}
                   </p>
                 </div>
               </div>

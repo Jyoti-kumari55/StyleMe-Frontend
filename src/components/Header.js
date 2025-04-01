@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import IonIcon from '@reacticons/ionicons';
+import IonIcon from "@reacticons/ionicons";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -12,8 +12,10 @@ import { clearCart } from "../features/cartSlice";
 
 const Header = ({ setSelectedUser }) => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
-  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+  const { isAuthenticated, user } = useSelector((state) => state.user);
+  const cartItems = useSelector((state) => state.cart.cartItems.items);
+
+  // const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
 
   const navigate = useNavigate();
   const { genderName } = useParams();
@@ -31,9 +33,8 @@ const Header = ({ setSelectedUser }) => {
   const handleLogout = () => {
     dispatch(logoutUser());
     dispatch(clearCart())
+    navigate("/login")
   };
-
-  const cartItems = useSelector((state) => state.cart.cartItems.items);
 
   const totalItemsInCart = cartItems.reduce(
     (total, item) => total + item.quantity,

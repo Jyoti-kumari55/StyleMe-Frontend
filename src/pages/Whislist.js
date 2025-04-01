@@ -87,7 +87,7 @@ const Whislist = () => {
                   </div>
                   <div className="card-body text-center">
                     <p className="card-title">{item.productId.name}</p>
-                    <p>${item.productId.price}</p>
+                    <p>₹{item.productId.price}</p>
                     <div
                       className="d-flex justify-content-center gap-2"
                       style={{ flexWrap: "wrap" }}
